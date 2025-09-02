@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-
-export const ApplyJob = () => {
+import { assets } from "../assets/assets";
+import Loading from "./Loading";
+import Navbar from "../components/Navbar";
+import kconvert from 'k-convert'
+ export const ApplyJob = () => {
   const { id } = useParams();
 
   const [JobData, setJobData] = useState(null);
@@ -10,11 +13,57 @@ export const ApplyJob = () => {
   const { jobs } = useContext(AppContext);
 
   useEffect(() => {
-    const data = jobs.filter((job) => job._id === id);
-    if (data.length !== 0) {
-      setJobData(data[0]);
-      console.log(data[0]);
+    const fetchJob = async () => {
+      const data = jobs.filter((job) => job._id === id);
+      if (data.lenght !== 0) {
+        setJobData(data[0]);
+        console.log(data[0]);
+      }
+    };
+
+    if (jobs.lenght > 0) {
+      fetchJob();
     }
+    fetchJob();
   }, [id, jobs]);
-  return <div> hello world</div>;
+
+  return JobData ? (
+    <>
+    <Navbar />
+    <div>
+      <div>
+        <div>
+          <div>
+            <img src={JobData.companyId.image} alt="" />
+            <div>
+              <h1>{JobData.title}</h1>
+              <div>
+                <span>
+                  <img src={assets.suitcase_icon} alt="" />
+                  {JobData.companyId.name}
+                </span>
+                <span>
+                  <img src={assets.location_icon} alt="" />
+                  {JobData.location}
+                </span>
+                <span>
+                  <img src={assets.person_icon} alt="" />
+                  {JobData.level}
+                </span>
+                <span>
+                  <img src={assets.money_icon} alt="" />
+                  CTC: {kconvert.convertTo(JobData.salary)}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </>
+  ) : (
+ <Loading />
+  );
 };
+
+
