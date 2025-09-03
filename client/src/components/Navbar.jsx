@@ -10,7 +10,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  const { setShowRecruiterLogin } = useContext(AppContext); // ✅ Fixed name
+  const { setShowRecruiterLogin } = useContext(AppContext); 
 
   return (
     <div className="shadow py-4">
