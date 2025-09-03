@@ -15,6 +15,7 @@ export const ApplyJob = () => {
   const [JobData, setJobData] = useState(null);
 
   const { jobs } = useContext(AppContext);
+  const [showApplicationForm, setShowApplicationForm] = useState(false);
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -50,11 +51,19 @@ export const ApplyJob = () => {
                 </h1>
                 <div className="flex flex-row flex-wrap justify-center md:justify-start gap-y-2 gap-6 items-center text-gray-600 mt-3 text-sm md:text-base">
                   <span className="flex items-center gap-2">
-                    <img src={assets.suitcase_icon} alt="" className="w-4 h-4" />
+                    <img
+                      src={assets.suitcase_icon}
+                      alt=""
+                      className="w-4 h-4"
+                    />
                     {JobData.companyId.name}
                   </span>
                   <span className="flex items-center gap-2">
-                    <img src={assets.location_icon} alt="" className="w-4 h-4" />
+                    <img
+                      src={assets.location_icon}
+                      alt=""
+                      className="w-4 h-4"
+                    />
                     {JobData.location}
                   </span>
                   <span className="flex items-center gap-2">
@@ -84,12 +93,17 @@ export const ApplyJob = () => {
           <div className="flex flex-col lg:flex-row justify-between items-start">
             {/* Left Section - Job Description */}
             <div className="w-full lg:w-2/3">
-              <h2 className="font-bold text-2xl mb-4 text-gray-800">Job description</h2>
+              <h2 className="font-bold text-2xl mb-4 text-gray-800">
+                Job description
+              </h2>
               <div
                 className="rich-text prose max-w-none text-gray-600 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: JobData.description }}
               ></div>
-              <button className="bg-blue-600 px-8 py-3 text-white rounded-lg shadow-md hover:bg-blue-700 transition mt-10">
+              <button
+                onClick={() => showApplicationForm(true)}
+                className="bg-blue-600 px-8 py-3 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+              >
                 Apply Now
               </button>
             </div>
